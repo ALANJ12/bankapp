@@ -1,0 +1,17 @@
+.center{width:400px;
+    background-image: url(../../assets/images/op.jpg);
+    text-align: center;
+    
+    justify-content: center;
+    
+ 
+border:15px rgb(123, 72, 72) ridge;
+padding:25px;
+border-radius: 23px 30px ;
+background-color:azure;
+text-shadow: 3px,2px;}
+img{width:200px}
+h6{color:beige}
+h1{color:beige}
+.container{display:flex;
+justify-content:center;}
