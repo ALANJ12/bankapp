@@ -6,23 +6,25 @@
     <img src="../../assets/images/Axis_Bank_logo.svg.png" alt="" srcset="">
     
     <br>
+    <form [formGroup]="registerForm">
    
     <BR>
         <BR>
-            <input type="email" class="form-control" id="user" placeholder="User name">
+            <input type="email" formControlName="uname" class="form-control" id="user" placeholder="User name">
             <br>
             <br>
-            <input type="email" class="form-control" id="acc" placeholder="Account number">
+            <input type="email" formControlName="acno" class="form-control" id="acc" placeholder="Account number">
             <br>
             <br>
-            <input type="password" class="form-control" id="password" placeholder="password">
+            <input type="password" formControlName="pswd" class="form-control" id="password" placeholder="password">
             <br>
             <br>
-            <button type="button" onclick="reg()" class="btn btn-primary btn-lg">SIGN IN</button>
+            <button type="button" (click)="signin()" class="btn btn-primary btn-lg">SIGN IN</button>
 
         <br>
         <br>
-        <a href="http://">Forget password</a> or <a href="./login.html">login</a>
+        <a href="http://">Forget password</a> or <a routerLink="" >login</a>
+    </form>
             
             
 

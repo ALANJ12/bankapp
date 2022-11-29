@@ -1,0 +1,7 @@
+table,th,td,tr{
+    border: 3px solid burlywood;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px;
+    margin-top: 50px;
+}

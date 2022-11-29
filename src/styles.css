@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+/* body{background-image:url(../src/assets/images/p.jpg)} */ 
+.center{width:400px;
+    background-image: url(../../MYBANKAPP/src/assets/images/op.jpg);
+    text-align: center;
+    
+    justify-content: center;
+    
+ 
+border:15px rgb(123, 72, 72) ridge;
+padding:25px;
+border-radius: 23px 30px ;
+background-color:azure;
+text-shadow: 3px,2px;}
+img{width:200px}
+h6{color:black}
+h1{color:black}
+h2{color: black;}
+.container{display:flex;
+justify-content:center;}
+text{ background-color: azure;}

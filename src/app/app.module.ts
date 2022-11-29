@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -8,18 +8,21 @@ import { AppComponent } from './app.component';
 import { Log1Component } from './log1/log1.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SigninComponent } from './signin/signin.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Log1Component,
     DashboardComponent,
-    SigninComponent
+    SigninComponent,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -35,5 +35,36 @@ data sharing only one direction
         [(ngmodel)]="property name"
 
         ANGULAR ROUTING
+
+
+
+        3)angular services
+        to hold redudnant data
+
+        to create new servic - n g s service name
+
+        4)dependency injection
+
+        to share data between two dependend classes
+
+        constructor(private ds:Dataservice)
+
+        5)Angular directives to manipulate dom
+        
+
+a)component directives
+b)structural directives
+     :-*ngFor
+
+     6)
+     ANGULAR forms
+     A)TEMplate driven forms(first design the html template)
+     b)model driven forms(first design model in ts file)
+     1)reactive forms
+     formgroup,array,control
+     for advanced validation
+     import from reactivedorms module(in app.module.ts)
+
+
         
 

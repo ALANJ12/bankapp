@@ -1,1 +1,103 @@
-<p>dashboard works!</p>
+<br>
+<br>
+<div class="parent">
+    <div><h2>HI {{USER}}</h2></div>
+    <a routerLink="/transaction">TRANSACTION HISTORY</a>
+    <div class="child">
+        <br>
+<br>
+
+<div class="container">
+
+    <div class="center" >
+    <img src="../../assets/images/Axis_Bank_logo.svg.png" alt="" srcset="">
+    <BR>
+        <br>
+
+    <h2> DEPOSIT</h2>
+    
+    <br>
+   
+  
+           
+            
+            <input type="email"  [(ngModel)]="acno" class="form-control" id=" depoacc" placeholder="Account number">
+            <br>
+            <br>
+            <input type="password"  [(ngModel)]="pswd" class="form-control" id="depopassword" placeholder="password">
+            <br>
+            <br>
+            <input type="email"   [(ngModel)]="amount" class="form-control" id="depoamount" placeholder="amount">
+            <BR>
+                <BR>
+
+            <button type="button" (click)="deposit()" class="btn btn-primary btn-lg">DEPOSIT</button>
+            <br>
+
+       
+        <!-- <a href="http://">Forget password</a> or <a routerLink="" >login</a> -->
+            
+            
+
+</div>
+
+
+
+
+
+
+    </div>
+    </div>
+
+
+
+    <div class="child">
+        <br>
+        <br>
+        <div class="container">
+        
+            <div class="center" >
+            <img src="../../assets/images/Axis_Bank_logo.svg.png" alt="" srcset="">
+            
+            <br>
+           
+            <BR>
+                <BR>
+                   <h2> WITHDRAW</h2>
+                   <br>
+
+                   
+                    
+                    <input type="email"  [(ngModel)]="acno1" class="form-control" id=" withacc" placeholder="Account number">
+                    <br>
+                    <br>
+                    <input type="password"  [(ngModel)]="pswd1" class="form-control" id="withpassword" placeholder="password">
+                    <br>
+                    <br>
+                    <input type="email"   [(ngModel)]="amount1" class="form-control" id="withamount" placeholder="amount">
+                    <BR>
+        
+                    <button type="button" (click)="withdraw()" class="btn btn-primary btn-lg">WITHDRAW</button>
+        
+                <br>
+                <br>
+                <!-- <a href="http://">Forget password</a> or <a routerLink="" >login</a> -->
+                    
+                    
+        
+        </div>
+        
+        
+        
+        
+        
+        
+            </div>
+        
+
+
+
+    </div>
+
+
+</div>
