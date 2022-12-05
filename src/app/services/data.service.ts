@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,37 @@ export class DataService {
   currentacno = ""
  
 
-  constructor() { }
+  constructor() {
+    this.getdetails();
+   }
+
+
+  savedetails() {
+    if (this.userdetails) {
+      localStorage.setItem('database', JSON.stringify(this.userdetails))
+    }
+    if (this.currentUser) { localStorage.setItem('currentUser', JSON.stringify(this.currentUser)) }
+    if(this.currentacno){
+      localStorage.setItem('currentacno', JSON.stringify(this.currentacno))
+    
+    }
+  }
+
+  getdetails() {
+    if (localStorage.getItem('database')) {
+      this.userdetails=JSON.parse(localStorage.getItem('database')||"")
+    }
+    if (localStorage.getItem('currentUser')) {
+      this.currentUser=JSON.parse(localStorage.getItem('currentUser')||"")
+    }
+    if (localStorage.getItem('currentacno')) {
+      this.currentacno=JSON.parse(localStorage.getItem('currentacno')||"")
+    }
+  }
+
+
+
+
   userdetails: any = {
     1000: { acno: 1000, username: "Alan", password: 1001,balance:1000,transaction:[] },
     1001: { acno: 1001, username: "rahul", password: 1002 ,balance:1000,transaction:[]  },
@@ -27,8 +58,10 @@ export class DataService {
         acno,
         username,
         password,
-        balance:0
+        balance: 0,
+        transaction:[]
       }
+      this.savedetails();
       console.log(userdetails);
       return true;
       
@@ -40,6 +73,7 @@ export class DataService {
       if (pswd == userdetails[acno]['password']) {
         this.currentUser = userdetails[acno]['username']
         this.currentacno = acno;
+        this.savedetails();
         return true;
       }
       else {
@@ -60,6 +94,7 @@ export class DataService {
           Type: 'Credit',
           Amount:amount
         })
+        this.savedetails();
         console.log(userdetails);
         
         return userdetails[acno]['balance']
@@ -85,6 +120,7 @@ export class DataService {
             Type: 'debit',
             Amount:amount
           })
+          this.savedetails();
           console.log(userdetails);
           return userdetails[acno]['balance']
         }

@@ -16,20 +16,24 @@
        
          <BR>
              <BR>
+                <form [formGroup]="loginForm">
 
               
                
                  
                 
-                 <input type="email"  [(ngModel)]="acno" class="form-control" id="logac" [placeholder]="account">
+                 <input type="email"  formControlName="acno" class="form-control" id="logac" [placeholder]="account">
                  <br>
+                 <div  *ngIf="this.loginForm.get('acno')?.errors &&this.loginForm.get('acno')?.touched" style="color:red">Invalid account number</div>
                  <br>
-                 <input type="password" [(ngModel)]= "pswd"  class="form-control" id="logpass" placeholder="password">
+                 <input type="password" formControlName= "pswd"  class="form-control" id="logpass" placeholder="password">
                  <br>
+                 <div  *ngIf="this.loginForm.get('pswd')?.errors &&this.loginForm.get('pswd')?.touched" style="color:red">Invalid password</div>
                  <br>
                  <button type="button" (click)="login()" class="btn btn-primary btn-lg">login</button>
  
              <br>
              <br>
-             <a routerLink="signin"> SIGN IN</a></div></div>
+             <a routerLink="signin"> SIGN IN</a>
+            </form></div></div>
  

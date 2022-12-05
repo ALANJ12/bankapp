@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -9,44 +12,96 @@ import { DataService } from '../services/data.service';
 export class DashboardComponent implements OnInit {
   USER=""
 
-  constructor(private ds: DataService) {this.USER=this.ds.currentUser }
+  constructor(private router: Router, private fb: FormBuilder, private ds: DataService) { this.USER = this.ds.currentUser;this.sdate=new Date(); }
 
   ngOnInit(): void {
+    if (!localStorage.getItem('currentacno')) {
+      alert("please login first");
+      this.router.navigateByUrl('');
+    }
   }
   acno = "";
   pswd = "";
   amount = ""
+  depositForm = this.fb.group({
+  
+    acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+   
+    pswd: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
+    amount: ['', [Validators.required, Validators.pattern('[0-9]*')]]
+  })
+  // registerForm = this.fb.group({
+  
+  //   acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+   
+  //   pswd: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
+  //   amount: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    
+  //   acno1: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+   
+  //   pswd1: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
+  //   amount1: ['', [Validators.required, Validators.pattern('[0-9]*')]]
+  
+  // })
+  withdrawForm = this.fb.group({
+  
+    acno1: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+   
+    pswd1: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
+    amount1: ['', [Validators.required, Validators.pattern('[0-9]*')]]
+  })
+  
 
   deposit() {
 
-    var acno = this.acno;
-    var pswd = this.pswd;
-    var amount = this.amount
+    var acno = this.depositForm.value.acno;
+    var pswd = this.depositForm.value.pswd;
+    var amount = this.depositForm.value.amount
+   
     
-    const result = this.ds.deposit(acno, pswd, amount)
-    if (result) {
-      alert(`${amount} is credited...available balance is${result}`)
+      const result = this.ds.deposit(acno, pswd, amount)
+
+      if (result) {
+        alert(`${amount} is credited...available balance is${result}`)
+      
     }
+  
     // alert("clicked")
   }
   acno1 = "";
   pswd1 = "";
   amount1 = ""
+  sdate: any;
+ 
+  
   // withdraw() {
   //   alert("clicked")
   // }
   withdraw() {
 
-    var acno1 = this.acno1;
-    var pswd1 = this.pswd1;
-    var amount1 = this.amount1
+    var acno = this.withdrawForm.value.acno1;
+    var pswd = this.withdrawForm.value.pswd1;
+    var amount = this.withdrawForm.value.amount1
     
-    const result1 = this.ds.withdraw(acno1, pswd1, amount1)
-    if (result1) {
-      alert(`${amount1} is debited...available balance is${result1}`)
+    const result = this.ds.withdraw(acno, pswd, amount)
+    if (result) {
+      alert(`${amount} is debited...available balance is${result}`)
     }
     // alert("clicked")
   }
+  logout() {
+    localStorage.removeItem('currentacno');
+    localStorage.removeItem('currentUser')
+    this.router.navigateByUrl('')
+  }
+  delete() {
+    // alert('clicked')
+    this.acno=JSON.parse( localStorage.getItem('currentacno')||'')
+  }
+  onCancel() {
+    this.acno = "";
+  }
+
 
   
 

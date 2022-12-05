@@ -1,5 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -11,6 +12,18 @@ import { DataService } from '../services/data.service';
 export class Log1Component implements OnInit {
   acno = ""
   pswd = ""
+  loginForm = this.fb.group({
+  
+    acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+   
+    pswd: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]]
+  })
+  // registerForm = this.fb.group({
+ 
+  //   acno: ['',[Validators.required,Validators.pattern('[0-9]*')]],
+   
+  //   pswd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
+  // })
   // userdetails: any = {
   //   1000: { acno: 1000, username: "Alan", password: 1001,balance:1000 },
   //   1001: { acno: 1001, username: "rahul", password: 1002 ,balance:1000 },
@@ -19,9 +32,13 @@ export class Log1Component implements OnInit {
   // }
   
   aim = "Your perfect banking partner"
-  account="Enter your account number"
+  account = "Enter your account number"
+  // registerForm: any;
+  // registerForm: any;
+  // fb: any;
+  // fb: any;
 
-  constructor( private ds:DataService,private router:Router) { }
+  constructor(private fb: FormBuilder, private ds: DataService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -87,14 +104,20 @@ export class Log1Component implements OnInit {
 
   }
   login() {
-    var acno = this.acno;
-    var pswd = this.pswd;
+    var acno = this.loginForm.value.acno;
+    var pswd = this.loginForm.value.pswd;
     var userdetails = this.ds.userdetails;
-    const result = this.ds.login(acno, pswd)
-    if (result) {
-      alert('login sucessfull');
-      this.router.navigateByUrl('dashboard')
+    if (this.loginForm.valid) {
+      const result = this.ds.login(acno, pswd)
+      if (result) {
+        alert('login sucessfull');
+        this.router.navigateByUrl('dashboard')
+      }
+      else { alert("login failed") }
     }
-    else{alert("login failed")}
+    else {
+      alert("invalid form")
+    }
+
   }
 }

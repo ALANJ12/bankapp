@@ -1,9 +1,16 @@
 <br>
 <br>
+<button class="btn btn-warning btn-lg"style="float:right;" (click)="logout()">Logout </button>
+<button class="btn btn-danger btn-lg"style="float:right;" (click)="delete()">delete </button>
+<form [formGroup]="depositForm">
 <div class="parent">
     <div><h2>HI {{USER}}</h2></div>
     <a routerLink="/transaction">TRANSACTION HISTORY</a>
-    <div class="child">
+    <br>
+    <h4>System date and time:{{sdate|date:'short'}}</h4>
+
+   <app-delete [item]="acno" (onCancel)="onCancel()"></app-delete>
+    <div class="child" [ngClass]="acno?'style1':''">
         <br>
 <br>
 
@@ -21,14 +28,18 @@
   
            
             
-            <input type="email"  [(ngModel)]="acno" class="form-control" id=" depoacc" placeholder="Account number">
+            <input type="email"  formControlName="acno" class="form-control" id=" depoacc" placeholder="Account number">
+            <br>
+            <div  *ngIf="this.depositForm.get('acno')?.errors &&this.depositForm.get('acno')?.touched" style="color:red">Invalid account number</div>
             <br>
             <br>
-            <input type="password"  [(ngModel)]="pswd" class="form-control" id="depopassword" placeholder="password">
+            <input type="password"  formControlName="pswd" class="form-control" id="depopassword" placeholder="password">
             <br>
+            <div  *ngIf="this.depositForm.get('pswd')?.errors &&this.depositForm.get('pswd')?.touched" style="color:red">Invalid password</div>
             <br>
-            <input type="email"   [(ngModel)]="amount" class="form-control" id="depoamount" placeholder="amount">
+            <input type="email"   formControlName="amount" class="form-control" id="depoamount" placeholder="amount">
             <BR>
+                <div  *ngIf="this.depositForm.get('amount')?.errors &&this.depositForm.get('amount')?.touched" style="color:red">Invalid amount</div>
                 <BR>
 
             <button type="button" (click)="deposit()" class="btn btn-primary btn-lg">DEPOSIT</button>
@@ -51,7 +62,7 @@
 
 
 
-    <div class="child">
+    <div class="child" [ngClass]="acno?'style1':''">
         <br>
         <br>
         <div class="container">
@@ -62,25 +73,31 @@
             <br>
            
             <BR>
+                <form [formGroup]="withdrawForm">
                 <BR>
                    <h2> WITHDRAW</h2>
                    <br>
 
                    
                     
-                    <input type="email"  [(ngModel)]="acno1" class="form-control" id=" withacc" placeholder="Account number">
+                    <input type="email"  formControlName="acno1" class="form-control" id=" withacc" placeholder="Account number">
+                    <br>
+                    <div  *ngIf="this.withdrawForm.get('acno1')?.errors &&this.withdrawForm.get('acno1')?.touched" style="color:red">Invalid account number</div>
                     <br>
                     <br>
-                    <input type="password"  [(ngModel)]="pswd1" class="form-control" id="withpassword" placeholder="password">
+                    <input type="password" formControlName="pswd1" class="form-control" id="withpassword" placeholder="password">
                     <br>
+                    <div  *ngIf="this.withdrawForm.get('pswd1')?.errors &&this.withdrawForm.get('pswd1')?.touched" style="color:red">Invalid password</div>
                     <br>
-                    <input type="email"   [(ngModel)]="amount1" class="form-control" id="withamount" placeholder="amount">
+                    <input type="email"  formControlName="amount1" class="form-control" id="withamount" placeholder="amount">
                     <BR>
+                        <div  *ngIf="this.withdrawForm.get('amount1')?.errors &&this.withdrawForm.get('amount1')?.touched" style="color:red">Invalid amount</div>
         
                     <button type="button" (click)="withdraw()" class="btn btn-primary btn-lg">WITHDRAW</button>
         
                 <br>
                 <br>
+            </form>
                 <!-- <a href="http://">Forget password</a> or <a routerLink="" >login</a> -->
                     
                     
@@ -98,6 +115,7 @@
 
 
     </div>
+
 
 
 </div>
