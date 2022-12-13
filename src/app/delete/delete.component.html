@@ -1,10 +1,18 @@
-<div *ngIf="item" style="text-align:center;">
+<div  *ngIf="item" style="text-align:center;">
     <h3>
         Are you sure of deleting this account {{item}}?
 
     </h3>
-    <button class="btn btn-success" >yes</button>
-    <button class="btn btn-danger" (click)="cancel()">no</button>
+    <button type="button" class="btn btn-success"  >yes</button>
+    <br>
+    <br>
+
+   
+    <!-- <button type="button" class="btn btn-danger" (click)="cancel()" >yes</button> -->
+    <!-- <button type="button"class="btn btn-danger" (click)="cancel()">no </button> -->
+    <button class="btn btn-danger btn-lg"style="float:right;" (click)="cancel()">no </button>
+   
+    
 
  
 </div>

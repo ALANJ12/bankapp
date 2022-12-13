@@ -98,9 +98,10 @@ export class DashboardComponent implements OnInit {
     // alert('clicked')
     this.acno=JSON.parse( localStorage.getItem('currentacno')||'')
   }
-  onCancel() {
-    this.acno = "";
+  onCancel(){
+    this.acno ="";
   }
+  
 
 
   
