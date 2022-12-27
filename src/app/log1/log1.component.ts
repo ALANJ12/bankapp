@@ -106,18 +106,30 @@ export class Log1Component implements OnInit {
   login() {
     var acno = this.loginForm.value.acno;
     var pswd = this.loginForm.value.pswd;
-    var userdetails = this.ds.userdetails;
+    // var userdetails = this.ds.userdetails;
     if (this.loginForm.valid) {
-      const result = this.ds.login(acno, pswd)
-      if (result) {
-        alert('login sucessfull');
-        this.router.navigateByUrl('dashboard')
-      }
-      else { alert("login failed") }
-    }
-    else {
-      alert("invalid form")
-    }
+      this.ds.login(acno, pswd)
+        .subscribe((result: any) => {
+          localStorage.setItem('currentUser', JSON.stringify(result.currentUser))
+          localStorage.setItem('currentacno', JSON.stringify(result.currentacno))
+          localStorage.setItem('token',JSON.stringify(result.token))
+          alert(result.message);
+          this.router.navigateByUrl('dashboard')
+        },
+          result => {
+            alert(result.error.message)
+          })
+    //   const result = this.ds.login(acno, pswd)
+    //   if (result) {
+    //     alert('login sucessfull');
+    //     this.router.navigateByUrl('dashboard')
+    //   }
+    //   else { alert("login failed") }
+    // }
+    // else {
+    //   alert("invalid form")
+    // }
 
+  }
   }
 }

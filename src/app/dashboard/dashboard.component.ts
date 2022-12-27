@@ -15,10 +15,14 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private fb: FormBuilder, private ds: DataService) { this.USER = this.ds.currentUser;this.sdate=new Date(); }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('currentacno')) {
-      alert("please login first");
-      this.router.navigateByUrl('');
-    }
+    // if (!localStorage.getItem('currentacno')) {
+    //   alert("please login first");
+    //   this.router.navigateByUrl('');
+    // }
+    this.USER = JSON.parse(localStorage.getItem('currentUser') || '');
+    console.log(this.USER);
+    
+    
   }
   acno = "";
   pswd = "";
@@ -56,15 +60,24 @@ export class DashboardComponent implements OnInit {
 
     var acno = this.depositForm.value.acno;
     var pswd = this.depositForm.value.pswd;
-    var amount = this.depositForm.value.amount
+    var amount = this.depositForm.value.amount;
+    if (this.depositForm.valid) {
+      this.ds.deposit(acno, pswd, amount)
+        .subscribe((result: any) => {
+        alert(result.message)
+        },
+          result => {
+          alert(result.error.message)
+        })
+    }
    
     
-      const result = this.ds.deposit(acno, pswd, amount)
+    //   const result = this.ds.deposit(acno, pswd, amount)
 
-      if (result) {
-        alert(`${amount} is credited...available balance is${result}`)
+    //   if (result) {
+    //     alert(`${amount} is credited...available balance is${result}`)
       
-    }
+    // }
   
     // alert("clicked")
   }

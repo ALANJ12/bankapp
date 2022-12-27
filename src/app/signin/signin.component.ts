@@ -14,43 +14,57 @@ export class SigninComponent implements OnInit {
   acno = ""
   pswd = ""
   registerForm = this.fb.group({
-    uname: ['',[Validators.required,Validators.pattern('[a-zA-Z]*')]],
-    acno: ['',[Validators.required,Validators.pattern('[0-9]*')]],
+    uname: ['', [Validators.required, Validators.pattern('[a-zA-Z]*')]],
+    acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
    
-    pswd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
+    pswd: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]]
   })
   aim = "Your perfect banking partner"
 
-  constructor( private fb:FormBuilder, private ds:DataService,private router:Router) { }
+  constructor(private fb: FormBuilder, private ds: DataService, private router: Router) { }
 
   ngOnInit(): void {
   
   }
   signin() {
     console.log(this.registerForm);
-    console.log(this.registerForm.get('uname')?.errors);
+    // console.log(this.registerForm.get('uname')?.errors);
+
     
   
     // alert("signin clicked")
-    var uname = this.registerForm.value.uname;
+    var username = this.registerForm.value.uname;
     var acno = this.registerForm.value.acno;
-    var pswd = this.registerForm.value.pswd;
+    var password = this.registerForm.value.pswd;
     if (this.registerForm.valid) {
-
-      const result = this.ds.signin(acno, uname, pswd);
-      if (result) {
-        alert('sign in sucessfull')
-        this.router.navigateByUrl('')
-      }
-      else {
-        alert('user already registered');
-        this.router.navigateByUrl('register')
-      }
-
+      console.log(this.registerForm.get('uname')?.errors);
+      this.ds.signin(acno, username, password)
+        .subscribe((result: any) => {
+          alert(result.message);
+          this.router.navigateByUrl('')
+        })
     }
     else {
-      alert("invalid form")
+      alert('invalid form')
     }
   }
-
 }
+    
+
+//       const result = this.ds.signin(acno, uname, pswd);
+//       if (result) {
+//         alert('sign in sucessfull')
+//         this.router.navigateByUrl('')
+//       }
+//       else {
+//         alert('user already registered');
+//         this.router.navigateByUrl('register')
+//       }
+
+//     }
+//     else {
+//       alert("invalid form")
+//     }
+//   }
+
+// }

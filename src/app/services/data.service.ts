@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 
@@ -5,12 +6,16 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
+  // login(acno: string | null | undefined, pswd: string | null | undefined) {
+  //   throw new Error('Method not implemented.');
+  // }
   currentUser = ""
   currentacno = ""
  
+ 
 
-  constructor() {
-    this.getdetails();
+  constructor(private http:HttpClient) {
+    // this.getdetails();
    }
 
 
@@ -25,17 +30,17 @@ export class DataService {
     }
   }
 
-  getdetails() {
-    if (localStorage.getItem('database')) {
-      this.userdetails=JSON.parse(localStorage.getItem('database')||"")
-    }
-    if (localStorage.getItem('currentUser')) {
-      this.currentUser=JSON.parse(localStorage.getItem('currentUser')||"")
-    }
-    if (localStorage.getItem('currentacno')) {
-      this.currentacno=JSON.parse(localStorage.getItem('currentacno')||"")
-    }
-  }
+  // getdetails() {
+  //   if (localStorage.getItem('database')) {
+  //     this.userdetails=JSON.parse(localStorage.getItem('database')||"")
+  //   }
+  //   if (localStorage.getItem('currentUser')) {
+  //     this.currentUser=JSON.parse(localStorage.getItem('currentUser')||"")
+  //   }
+  //   if (localStorage.getItem('currentacno')) {
+  //     this.currentacno=JSON.parse(localStorage.getItem('currentacno')||"")
+  //   }
+  // }
 
 
 
@@ -47,68 +52,90 @@ export class DataService {
     1002: { acno: 1002, username: "babu", password: 1003, balance: 1000,transaction:[]  }
   }
 
-  signin(acno: any, username: any, password: any) {
-    let userdetails = this.userdetails
-    if (acno in userdetails) {
-      return false;
-
+  signin(acno: any, username: any, pswd: any) {
+    const data = {
+      acno,
+      pswd,
+      username
     }
-    else {
-      userdetails[acno] = {
-        acno,
-        username,
-        password,
-        balance: 0,
-        transaction:[]
-      }
-      this.savedetails();
-      console.log(userdetails);
-      return true;
+    return this.http.post('http://localhost:3000/signin', data)
+  }
+  //   let userdetails = this.userdetails
+    
+  //   if (acno in userdetails) {
+  //     return false;
+
+  //   }
+  //   else {
+  //     userdetails[acno] = {
+  //       acno,
+  //       username,
+  //       password,
+  //       balance: 0,
+  //       transaction:[]
+  //     }
+  //     this.savedetails();
+  //     console.log(userdetails);
+  //     return true;
       
-    }
-  }
+  //   }
+  // }
   login(acno: any, pswd: any) {
-    let userdetails = this.userdetails;
-    if (acno in userdetails) {
-      if (pswd == userdetails[acno]['password']) {
-        this.currentUser = userdetails[acno]['username']
-        this.currentacno = acno;
-        this.savedetails();
-        return true;
-      }
-      else {
-        return false;
-      }
+    const data = {
+      acno,
+      pswd
     }
-    else {
-      return false;
-    }
+    return this.http.post('http://localhost:3000/login', data)
   }
+  //   let userdetails = this.userdetails;
+  //   if (acno in userdetails) {
+  //     if (pswd == userdetails[acno]['password']) {
+  //       this.currentUser = userdetails[acno]['username']
+  //       this.currentacno = acno;
+  //       this.savedetails();
+  //       return true;
+  //     }
+  //     else {
+  //       return false;
+  //     }
+  //   }
+  //   else {
+  //     return false;
+  //   }
+  // }
   deposit(acno: any, pswd: any, amt: any) {
-    var amount = parseInt(amt)
-    let userdetails = this.userdetails;
-    if (acno in userdetails) {
-      if (pswd == userdetails[acno]['password']) {
-        userdetails[acno]['balance'] += amount;
-        userdetails[acno]['transaction'].push({
-          Type: 'Credit',
-          Amount:amount
-        })
-        this.savedetails();
-        console.log(userdetails);
-        
-        return userdetails[acno]['balance']
-      }
-      else {
-        alert("password incorrect");
-        return false;
-
-      }
-    } else {
-      alert("invalid data");
-      return false;
+    const data = {
+      acno,
+      pswd,
+      amount: amt
     }
+    return this.http.post('http://localhost:3000/deposit', data)
   }
+
+  //   var amount = parseInt(amt)
+  //   let userdetails = this.userdetails;
+  //   if (acno in userdetails) {
+  //     if (pswd == userdetails[acno]['password']) {
+  //       userdetails[acno]['balance'] += amount;
+  //       userdetails[acno]['transaction'].push({
+  //         Type: 'Credit',
+  //         Amount:amount
+  //       })
+  //       this.savedetails();
+  //       console.log(userdetails);
+        
+  //       return userdetails[acno]['balance']
+  //     }
+  //     else {
+  //       alert("password incorrect");
+  //       return false;
+
+  //     }
+  //   } else {
+  //     alert("invalid data");
+  //     return false;
+  //   }
+  // }
   withdraw(acno: any, pswd: any, amt: any) {
     var amount = parseInt(amt)
     let userdetails = this.userdetails;
